@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Admin — Contact</title>
+<link rel="stylesheet" href="../assets/styles.css"></head>
+<body>
+  <main style="max-width:900px;margin:2rem auto">
+    <h1>Admin Panel</h1>
+    <p>Enter API key to fetch/edit contact details (keeps contact private).</p>
+    <input id="apiKey" placeholder="Enter API key" style="width:100%;padding:.5rem;margin-bottom:.5rem"/>
+    <button id="fetchBtn" class="btn">Fetch Contact</button>
+    <pre id="result" style="background:#0b0b0b;padding:1rem;border-radius:8px;margin-top:1rem;white-space:pre-wrap"></pre>
+    <textarea id="editor" style="width:100%;height:180px;margin-top:.5rem;display:none;"></textarea>
+    <div style="margin-top:.5rem">
+      <button id="saveBtn" class="btn btn-green" style="display:none">Save</button>
+    </div>
+    <p style="margin-top:1rem" class="muted">Note: To keep data private, create a serverless endpoint that returns contact only when X-API-KEY matches. See README.</p>
+  </main>
+  <script>
+    const fetchBtn = document.getElementById('fetchBtn');
+    const apiKeyInput = document.getElementById('apiKey');
+    const result = document.getElementById('result');
+    const editor = document.getElementById('editor');
+    const saveBtn = document.getElementById('saveBtn');
+
+    fetchBtn.addEventListener('click', async ()=>{
+      const key = apiKeyInput.value.trim();
+      if(!key){ alert('Please enter API key'); return; }
+      try{
+        const res = await fetch('/.netlify/functions/getContact', {
+          headers: {'x-api-key': key}
+        });
+        if(res.status===200){
+          const data = await res.json();
+          result.textContent = JSON.stringify(data,null,2);
+          editor.style.display='block';
+          editor.value = JSON.stringify(data,null,2);
+          saveBtn.style.display='inline-block';
+        } else {
+          result.textContent = 'Error: '+res.status;
+        }
+      }catch(err){
+        result.textContent = 'Fetch failed: '+err;
+      }
+    });
+
+    saveBtn.addEventListener('click', async ()=>{
+      const key = apiKeyInput.value.trim();
+      const payload = editor.value;
+      try{
+        const res = await fetch('/.netlify/functions/setContact', {
+          method:'POST',
+          headers:{'Content-Type':'application/json','x-api-key': key},
+          body: payload
+        });
+        if(res.status===200) alert('Saved');
+        else alert('Error '+res.status);
+      }catch(e){ alert('Save failed: '+e) }
+    });
+  </script>
+</body>
+</html>
