@@ -1,427 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manohar Singh Rajpurohit - Portfolio</title>
-
-  <!-- SEO / Social -->
-  <meta name="description" content="Manohar Singh Rajpurohit — Graphic Designer & Web Developer. Portfolio of projects, skills, and contact information.">
-  <link rel="canonical" href="https://manohar20059.github.io/">
-  <meta property="og:title" content="Manohar Singh Rajpurohit — Portfolio">
-  <meta property="og:description" content="Graphic Designer & Web Developer creating stunning visual experiences">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://manohar20059.github.io/">
-  <meta property="og:image" content="https://manohar20059.github.io/img/p1.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <!-- Preconnect to speed up fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome (consider hosting your icons or using SVGs in production) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-  <!-- Favicon (add a real favicon at /favicon.ico) -->
-  <link rel="icon" href="/favicon.ico">
-
-  <style>
-    :root {
-      --primary-color: #ff6b9d;
-      --secondary-color: #ffd166;
-      --accent-color: #ff4757;
-      --glass-color: rgba(255, 255, 255, 0.12);
-      --text-color: #fff;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-      --blue-tick: #1DA1F2;
-    }
-
-    /* Basic reset */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-      min-height: 100vh;
-      color: var(--text-color);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
-
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; animation: none !important; scroll-behavior: auto; }
-    }
-
-    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    header.navbar {
-      position: fixed; inset: 0 0 auto 0; height: auto;
-      top: 0; left: 0; width: 100%;
-      background: var(--glass-color);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 12px 0; z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .nav-container { display:flex; align-items:center; justify-content:space-between; gap: 16px; }
-    .logo { font-size: 1.25rem; font-weight:700; color: white; text-decoration: none; }
-    .nav-links { display:flex; gap: 22px; align-items:center; }
-    .nav-links a { color: white; text-decoration:none; font-weight:500; position:relative; }
-    .nav-links a:hover { color: var(--secondary-color); }
-    .nav-links a::after { content:''; position:absolute; bottom:-6px; left:0; width:0; height:2px; background:var(--secondary-color); transition: width .25s ease; }
-    .nav-links a:hover::after { width:100%; }
-
-    .hamburger { display:none; font-size:1.25rem; color:white; background:transparent; border:none; cursor:pointer; }
-    .hamburger:focus { outline:2px solid rgba(255,255,255,0.25); border-radius:6px; }
-
-    /* Sidebar */
-    .sidebar { position: fixed; top:0; left:-320px; width: 280px; height:100vh; background: var(--glass-color); padding: 20px; z-index: 1100; transition: left .28s ease; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 5px 0 15px rgba(0,0,0,0.12); }
-    .sidebar.active { left: 0; }
-    .sidebar-close { position:absolute; top:14px; right:14px; color:white; background:transparent; border:none; font-size:1.1rem; cursor:pointer; }
-    .sidebar-links { margin-top:48px; display:flex; flex-direction:column; gap:18px; }
-    .sidebar-links a { color:white; text-decoration:none; padding:8px 10px; border-radius:8px; display:flex; align-items:center; gap:10px; }
-    .sidebar-links a:hover { background: rgba(255,255,255,0.06); }
-
-    /* Hero */
-    .hero { min-height: 100vh; display:flex; align-items:center; position:relative; padding-top:80px; }
-    .hero-content { display:flex; align-items:center; justify-content:space-between; width:100%; gap: 30px; }
-    .hero-text { flex:1; color: #fff; }
-    .hero-text h1 { font-size: clamp(1.8rem, 4.5vw, 3.5rem); line-height:1.15; margin-bottom:12px; }
-    .hero-text p { font-size: 1.05rem; opacity:0.95; margin-bottom:18px; }
-    .btn { padding:10px 14px; border-radius:999px; font-weight:600; border:none; cursor:pointer; color:white; box-shadow: 0 6px 18px rgba(0,0,0,0.12); margin-right:10px; display:inline-block; text-decoration:none; }
-    .btn-primary { background: linear-gradient(45deg, var(--primary-color), #ff8fab); }
-    .btn-secondary { background: linear-gradient(45deg, #6c757d, #adb5bd); }
-
-    .hero-image { flex:1; display:flex; justify-content:center; align-items:center; position:relative; }
-    .profile-img {
-      width: 350px; height:350px; border-radius:50%; object-fit:cover;
-      border:5px solid rgba(255,255,255,0.18); box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      transition: transform .35s ease, box-shadow .35s ease, filter .35s ease;
-    }
-    .profile-img:hover { transform: translateY(-8px); box-shadow: 0 18px 44px rgba(0,0,0,0.28); filter: brightness(1.02) drop-shadow(0 0 12px rgba(255,215,0,0.6)); }
-
-    .verified-badge { position:absolute; bottom:28px; right:28px; background:var(--blue-tick); width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; border:3px solid white; animation:pulse 2s infinite; }
-    @keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);} }
-
-    .social-icons { display:flex; gap:16px; margin-top:18px; }
-    .social-icon { width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12); color:white; font-size:18px; transition: transform .25s ease, background .25s ease; text-decoration:none; }
-    .social-icon:hover { transform: translateY(-4px); background: rgba(255,255,255,0.18); }
-
-    /* Sections and cards */
-    section { padding: 80px 0; }
-    .glass-card { background: rgba(255,255,255,0.12); border-radius:16px; padding:22px; border:1px solid rgba(255,255,255,0.08); box-shadow: var(--shadow); margin-bottom:30px; }
-    .about-content { display:flex; gap:30px; align-items:center; }
-    .about-img { width:300px;height:300px;border-radius:16px; object-fit:cover; border:4px solid rgba(255,255,255,0.14); box-shadow: 0 10px 30px rgba(0,0,0,0.18); }
-    .info-cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:18px; margin-top:18px; }
-
-    /* Skills, projects, contact simplified responsive grid */
-    .skills-container, .projects-container { display:grid; gap:20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-    .skill-card, .project-card { background: rgba(255,255,255,0.06); border-radius:12px; padding:16px; color:white; }
-
-    /* Contact */
-    .contact-container { display:flex; gap:30px; align-items:flex-start; }
-    .contact-info { flex:1; color:white; }
-    .contact-form { flex:1; }
-    .form-group { margin-bottom:12px; }
-    .form-group label { display:block; margin-bottom:6px; color:white; font-weight:600; }
-    .form-group input, .form-group textarea { width:100%; padding:10px 12px; border-radius:8px; border:none; background:rgba(255,255,255,0.95); font-size:15px; }
-    .form-group input:focus, .form-group textarea:focus { outline: 3px solid rgba(255,107,157,0.18); }
-
-    footer { padding:18px 0; text-align:center; color:white; background:transparent; margin-top:30px; }
-
-    /* Data, modal and small screens left similar but responsive tweaks */
-    @media (max-width: 992px) {
-      .hero-content { flex-direction: column-reverse; text-align:center; gap:18px; }
-      .about-content { flex-direction: column; text-align:center; }
-      .contact-container { flex-direction: column; }
-      .nav-links { display:none; }
-      .hamburger { display:block; }
-      .profile-img { width:260px; height:260px; }
-      .about-img { width:260px; height:260px; }
-    }
-    @media (max-width: 576px) {
-      .hero-text h1 { font-size:1.8rem; }
-      .profile-img { width:200px; height:200px; }
-      .btn { display:block; width:100%; margin-bottom:10px; }
-    }
-
-    /* Skip link */
-    .skip-link {
-      position: absolute; left: -999px; top: auto; width:1px; height:1px; overflow:hidden;
-    }
-    .skip-link:focus {
-      position: static; width:auto; height:auto; margin:8px; padding:8px 12px; background:#fff; color:#111; border-radius:6px; z-index:2000;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Manohar — Portfolio</title>
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <header class="navbar" role="banner">
-    <div class="container nav-container">
-      <a href="#" class="logo">Manohar Singh</a>
-
-      <nav aria-label="Primary" class="nav-links" role="navigation">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <button id="hamburger" class="hamburger" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">
-        <i class="fas fa-bars" aria-hidden="true"></i>
-      </button>
+  <header class="hero">
+    <video id="bgVideo" class="bg-video" autoplay muted loop playsinline poster="assets/bg.jpg">
+      <source src="assets/bg.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay">
+      <h1>Manohar Singh Rajpurohit</h1>
+      <p>Professional — Projects, Services & Contact</p>
     </div>
   </header>
 
-  <!-- Sidebar (for small screens) -->
-  <aside id="sidebar" class="sidebar" role="dialog" aria-modal="true" aria-hidden="true">
-    <button id="sidebarClose" class="sidebar-close" aria-label="Close navigation">
-      <i class="fas fa-times" aria-hidden="true"></i>
-    </button>
-    <div class="sidebar-links" role="menu">
-      <a href="#home"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
-      <a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About</a>
-      <a href="#skills"><i class="fas fa-code" aria-hidden="true"></i> Skills</a>
-      <a href="#projects"><i class="fas fa-project-diagram" aria-hidden="true"></i> Projects</a>
-      <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a>
-    </div>
-  </aside>
-
-  <main id="main" tabindex="-1">
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-      <div class="container hero-content">
-        <div class="hero-text" aria-labelledby="hero-heading">
-          <h1 id="hero-heading">Hi, I'm Manohar Singh Rajpurohit</h1>
-          <p>Graphic Designer & Web Developer creating stunning visual experiences</p>
-
-          <div>
-            <a href="#projects" class="btn btn-primary">View Portfolio</a>
-            <a href="#contact" class="btn btn-secondary">Contact Me</a>
-          </div>
-
-          <div class="social-icons" aria-label="Social links">
-            <a href="https://www.instagram.com/themanohar_singh/" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in new tab)">
-              <i class="fab fa-instagram" aria-hidden="true"></i>
-            </a>
-            <a href="https://wa.me/9079216393" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (opens in new tab)">
-              <i class="fab fa-whatsapp" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-image" aria-hidden="false">
-          <!-- Use a relative path to your image. If your image lives at /img/p1.jpg use that file. -->
-          <img src="img/p1.jpg"
-               alt="Manohar Singh Rajpurohit — portrait"
-               class="profile-img"
-               loading="eager"
-               fetchpriority="high">
-          <div class="verified-badge" aria-hidden="true"><i class="fas fa-check"></i></div>
-        </div>
+  <main>
+    <!-- Projects (reels-style) -->
+    <section id="projects" class="section">
+      <h2>Projects</h2>
+      <div class="reels-carousel" id="reelsCarousel" tabindex="0">
+        <!-- Each .reel will contain image or video -->
+        <article class="reel">
+          <video muted loop playsinline class="reel-media">
+            <source src="assets/reel1.mp4" type="video/mp4">
+          </video>
+          <div class="reel-caption">Demo Reel 1</div>
+        </article>
+        <article class="reel">
+          <img src="assets/reel2.jpg" class="reel-media" alt="Reel 2">
+          <div class="reel-caption">Demo Reel 2</div>
+        </article>
+        <article class="reel">
+          <video muted loop playsinline class="reel-media">
+            <source src="assets/reel3.mp4" type="video/mp4">
+          </video>
+          <div class="reel-caption">Demo Reel 3</div>
+        </article>
       </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-      <div class="container">
-        <div class="glass-card">
-          <div class="about-content">
-            <div class="about-image">
-              <img src="img/p1.jpg" alt="Headshot of Manohar Singh Rajpurohit" class="about-img" loading="lazy">
-            </div>
-            <div class="about-text">
-              <h2>About Me</h2>
-              <p>I'm a passionate Graphic Designer and Web Developer with expertise in creating visually appealing designs and functional websites. With years of experience in the industry, I combine creative vision and technical precision to deliver results that meet client objectives and exceed expectations.</p>
-              <div class="info-cards" aria-hidden="false">
-                <div class="info-card">
-                  <i class="fas fa-phone" aria-hidden="true"></i>
-                  <div class="info-text">
-                    <h4>Phone</h4>
-                    <p>+91 9079216393</p>
-                  </div>
-                </div>
-                <div class="info-card">
-                  <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                  <div class="info-text">
-                    <h4>Location</h4>
-                    <p>Barmer, Rajasthan</p>
-                  </div>
-                </div>
-                <div class="info-card">
-                  <i class="fas fa-envelope" aria-hidden="true"></i>
-                  <div class="info-text">
-                    <h4>Email</h4>
-                    <p><a href="mailto:m60626135@gmail.com" style="color:inherit; text-decoration:none;">m60626135@gmail.com</a></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <!-- Services -->
+    <section id="services" class="section">
+      <h2>Services</h2>
+      <div class="service-filters">
+        <button data-filter="all" class="active">All</button>
+        <button data-filter="design">Design</button>
+        <button data-filter="web">Web</button>
+        <button data-filter="video">Video</button>
+      </div>
+      <div class="services-grid" id="servicesGrid">
+        <!-- service card example -->
+        <div class="service-card" data-type="web">
+          <div class="service-icon">💻</div>
+          <h3 class="service-title">Website Package</h3>
+          <div class="service-price">₹8,999</div>
+          <p class="service-desc">Responsive static or dynamic websites with SEO basics.</p>
+          <div class="service-ctas">
+            <button class="btn btn-green book-btn">Book</button>
+            <button class="btn btn-outline meeting-btn">Meeting</button>
           </div>
         </div>
+        <div class="service-card" data-type="design">
+          <div class="service-icon">🎨</div>
+          <h3 class="service-title">Brand Design</h3>
+          <div class="service-price">₹4,500</div>
+          <p class="service-desc">Logo, brand kit and social templates.</p>
+          <div class="service-ctas">
+            <button class="btn btn-green book-btn">Book</button>
+            <button class="btn btn-outline meeting-btn">Meeting</button>
+          </div>
+        </div>
+        <!-- add more cards as needed -->
       </div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="skills" id="skills">
-      <div class="container">
-        <div class="glass-card">
-          <h2 style="color:white; text-align:center; margin-bottom:18px;">My Skills</h2>
-          <div class="skills-container" role="list">
-            <div class="skill-card" role="listitem">
-              <div class="skill-header">
-                <div class="skill-icon"><i class="fab fa-html5"></i></div>
-                <h3 class="skill-title">HTML5</h3>
-              </div>
-              <p class="skill-description">Advanced knowledge of semantic HTML5 markup and modern web standards.</p>
-              <div class="progress-bar" aria-hidden="true"><div class="progress" style="width:95%"></div></div>
-            </div>
-            <div class="skill-card" role="listitem">
-              <div class="skill-header">
-                <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
-                <h3 class="skill-title">CSS3</h3>
-              </div>
-              <p class="skill-description">Expert in CSS3 including Flexbox, Grid, animations and responsive design.</p>
-              <div class="progress-bar" aria-hidden="true"><div class="progress" style="width:90%"></div></div>
-            </div>
-            <div class="skill-card" role="listitem">
-              <div class="skill-header">
-                <div class="skill-icon"><i class="fab fa-js"></i></div>
-                <h3 class="skill-title">JavaScript</h3>
-              </div>
-              <p class="skill-description">Strong JavaScript skills including ES6+ features and DOM manipulation.</p>
-              <div class="progress-bar" aria-hidden="true"><div class="progress" style="width:85%"></div></div>
-            </div>
-            <!-- Add more skill cards as needed -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects (placeholder) -->
-    <section class="projects" id="projects">
-      <div class="container">
-        <div class="glass-card">
-          <h2 style="color:white; text-align:center; margin-bottom:18px;">Projects</h2>
-          <div class="projects-container">
-            <div class="project-card">
-              <div class="project-content">
-                <h3 class="project-title">Project Title</h3>
-                <p class="project-description">Short description of a project. Add real projects and screenshots here.</p>
-              </div>
-            </div>
-            <!-- Add project cards -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-      <div class="container">
-        <div class="glass-card">
-          <div class="contact-container">
-            <div class="contact-info">
-              <h2>Contact Me</h2>
-              <p>If you'd like to work together or have questions, send me a message or email directly at <a href="mailto:m60626135@gmail.com" style="color:inherit;">m60626135@gmail.com</a>.</p>
-            </div>
-
-            <div class="contact-form">
-              <!-- Example using Formspree - replace action with your service or backend -->
-              <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST" novalidate>
-                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input id="name" name="name" type="text" required>
-                </div>
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input id="email" name="email" type="email" required>
-                </div>
-                <div class="form-group">
-                  <label for="message">Message</label>
-                  <textarea id="message" name="message" rows="6" required></textarea>
-                </div>
-                <div class="form-buttons">
-                  <button type="submit" class="btn btn-primary">Send Message</button>
-                  <button type="reset" class="btn btn-secondary" aria-label="Reset form">Reset</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+    <!-- Contact (private) -->
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div id="contactCard" class="contact-card">
+        <p class="muted">Contact details are private. Admins can view/edit in the <a href="/admin/">admin panel</a>.</p>
+        <pre id="contactData" style="display:none;"></pre>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; <span id="year"></span> Manohar Singh Rajpurohit. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Small JS for navigation and accessibility -->
-  <script>
-    (function() {
-      const hamburger = document.getElementById('hamburger');
-      const sidebar = document.getElementById('sidebar');
-      const sidebarClose = document.getElementById('sidebarClose');
-      const focusableSelector = 'a, button, input, [tabindex]:not([tabindex="-1"])';
-
-      function openSidebar() {
-        sidebar.classList.add('active');
-        sidebar.setAttribute('aria-hidden', 'false');
-        hamburger.setAttribute('aria-expanded', 'true');
-        // Focus first focusable element inside sidebar
-        const firstFocusable = sidebar.querySelector(focusableSelector);
-        if (firstFocusable) firstFocusable.focus();
-      }
-      function closeSidebar() {
-        sidebar.classList.remove('active');
-        sidebar.setAttribute('aria-hidden', 'true');
-        hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.focus();
-      }
-
-      if (hamburger && sidebar) {
-        hamburger.addEventListener('click', function(e) {
-          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-          if (!expanded) openSidebar(); else closeSidebar();
-          e.stopPropagation();
-        });
-      }
-      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-
-      // Close sidebar when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
-          closeSidebar();
-        }
-      });
-
-      // Close on ESC
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeSidebar();
-      });
-
-      // Make sure year in footer is current
-      document.getElementById('year').textContent = new Date().getFullYear();
-
-      // Basic client-side form validation enhancement (optional)
-      const form = document.getElementById('contactForm');
-      if (form) {
-        form.addEventListener('submit', function(e) {
-          // You can add custom validations here; keep basic HTML validation by default
-          if (!form.checkValidity()) {
-            e.preventDefault();
-            form.reportValidity();
-          }
-        });
-      }
-    })();
-  </script>
+  <script src="assets/scripts.js"></script>
 </body>
 </html>

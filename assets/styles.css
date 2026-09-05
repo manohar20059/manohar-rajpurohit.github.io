@@ -1,0 +1,38 @@
+/* Basic styles, hero background, reels, services and buttons */
+:root{
+  --accent:#12b76a;
+  --muted:#7a7a7a;
+  --card-bg:#fff;
+  --glass: rgba(255,255,255,0.06);
+  --shadow: 0 6px 18px rgba(0,0,0,0.12);
+  font-family: Inter, system-ui, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#0b0b0b;color:#eee}
+.hero{position:relative;height:60vh;min-height:420px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.6)}
+.hero-overlay{position:relative;z-index:2;text-align:center;padding:2rem}
+.hero-overlay h1{font-size:clamp(2rem,4vw,3.5rem);margin:0 0 .5rem}
+.section{padding:3rem 1rem;max-width:1100px;margin:0 auto}
+.reels-carousel{height:420px;display:flex;flex-direction:column;gap:1rem;overflow:hidden;scroll-snap-type:y mandatory}
+.reel{scroll-snap-align:center;border-radius:12px;overflow:hidden;position:relative;background:#111;box-shadow:var(--shadow)}
+.reel-media{width:100%;height:420px;object-fit:cover;display:block}
+.reel-caption{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,0.5);padding:8px 12px;border-radius:8px}
+
+.service-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.service-filters button{background:transparent;border:1px solid #333;color:#ddd;padding:.5rem .75rem;border-radius:8px;cursor:pointer}
+.service-filters button.active{background:var(--accent);color:#052a16;border-color:var(--accent)}
+
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.service-card{background:linear-gradient(180deg,#081012, #0d1112);padding:1rem;border-radius:12px;box-shadow:var(--shadow);transition:transform .24s,box-shadow .24s}
+.service-card:hover{transform:translateY(-6px)}
+.service-icon{font-size:2rem}
+.service-title{margin:.5rem 0}
+.service-price{color:var(--accent);font-weight:700}
+.service-ctas{display:flex;gap:.5rem;margin-top:.75rem}
+.btn{padding:.5rem .9rem;border-radius:8px;border:0;cursor:pointer}
+.btn-green, .btn.btn-green{background:var(--accent);color:#052a16}
+.btn-outline{background:transparent;border:1px solid #4b4b4b;color:#ddd}
+
+.contact-card{padding:1rem;background:#071016;border-radius:10px}
+.muted{color:var(--muted)}
