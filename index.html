@@ -20,10 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome (consider hosting your icons or using SVGs in production) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-  <!-- Favicon (add a real favicon at /favicon.ico) -->
+  <!-- Favicon -->
   <link rel="icon" href="/favicon.ico">
 
   <style>
@@ -42,7 +39,8 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+      background-attachment: fixed;
       min-height: 100vh;
       color: var(--text-color);
       -webkit-font-smoothing: antialiased;
@@ -59,9 +57,9 @@
     header.navbar {
       position: fixed; inset: 0 0 auto 0; height: auto;
       top: 0; left: 0; width: 100%;
-      background: var(--glass-color);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
       padding: 12px 0; z-index: 1000;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
@@ -77,7 +75,7 @@
     .hamburger:focus { outline:2px solid rgba(255,255,255,0.25); border-radius:6px; }
 
     /* Sidebar */
-    .sidebar { position: fixed; top:0; left:-320px; width: 280px; height:100vh; background: var(--glass-color); padding: 20px; z-index: 1100; transition: left .28s ease; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 5px 0 15px rgba(0,0,0,0.12); }
+    .sidebar { position: fixed; top:0; left:-320px; width: 280px; height:100vh; background: rgba(255, 255, 255, 0.08); padding: 20px; z-index: 1100; transition: left .28s ease; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); overflow-y: auto; }
     .sidebar.active { left: 0; }
     .sidebar-close { position:absolute; top:14px; right:14px; color:white; background:transparent; border:none; font-size:1.1rem; cursor:pointer; }
     .sidebar-links { margin-top:48px; display:flex; flex-direction:column; gap:18px; }
@@ -90,7 +88,8 @@
     .hero-text { flex:1; color: #fff; }
     .hero-text h1 { font-size: clamp(1.8rem, 4.5vw, 3.5rem); line-height:1.15; margin-bottom:12px; }
     .hero-text p { font-size: 1.05rem; opacity:0.95; margin-bottom:18px; }
-    .btn { padding:10px 14px; border-radius:999px; font-weight:600; border:none; cursor:pointer; color:white; box-shadow: 0 6px 18px rgba(0,0,0,0.12); margin-right:10px; display:inline-block; text-decoration:none; }
+    .btn { padding:10px 14px; border-radius:999px; font-weight:600; border:none; cursor:pointer; color:white; box-shadow: 0 6px 18px rgba(0,0,0,0.12); margin-right:10px; display:inline-block; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+    .btn:hover { transform: translateY(-2px); }
     .btn-primary { background: linear-gradient(45deg, var(--primary-color), #ff8fab); }
     .btn-secondary { background: linear-gradient(45deg, #6c757d, #adb5bd); }
 
@@ -98,15 +97,16 @@
     .profile-img {
       width: 350px; height:350px; border-radius:50%; object-fit:cover;
       border:5px solid rgba(255,255,255,0.18); box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      transition: transform .35s ease, box-shadow .35s ease, filter .35s ease;
+      transition: transform .35s ease, box-shadow .35s ease;
+      will-change: transform;
     }
-    .profile-img:hover { transform: translateY(-8px); box-shadow: 0 18px 44px rgba(0,0,0,0.28); filter: brightness(1.02) drop-shadow(0 0 12px rgba(255,215,0,0.6)); }
+    .profile-img:hover { transform: translateY(-8px); box-shadow: 0 18px 44px rgba(0,0,0,0.28); }
 
-    .verified-badge { position:absolute; bottom:28px; right:28px; background:var(--blue-tick); width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; border:3px solid white; animation:pulse 2s infinite; }
+    .verified-badge { position:absolute; bottom:28px; right:28px; background:var(--blue-tick); width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; box-shadow: 0 4px 12px rgba(29, 161, 242, 0.4); animation: pulse 2s infinite; }
     @keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);} }
 
     .social-icons { display:flex; gap:16px; margin-top:18px; }
-    .social-icon { width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12); color:white; font-size:18px; transition: transform .25s ease, background .25s ease; text-decoration:none; }
+    .social-icon { width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12); color:white; font-size:18px; transition: transform .2s ease, background .2s ease; will-change: transform; }
     .social-icon:hover { transform: translateY(-4px); background: rgba(255,255,255,0.18); }
 
     /* Sections and cards */
@@ -115,10 +115,18 @@
     .about-content { display:flex; gap:30px; align-items:center; }
     .about-img { width:300px;height:300px;border-radius:16px; object-fit:cover; border:4px solid rgba(255,255,255,0.14); box-shadow: 0 10px 30px rgba(0,0,0,0.18); }
     .info-cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:18px; margin-top:18px; }
+    .info-card { background: rgba(255,255,255,0.08); padding: 16px; border-radius: 12px; display: flex; gap: 12px; align-items: flex-start; }
+    .info-card i { font-size: 24px; color: var(--secondary-color); }
+    .info-text h4 { margin-bottom: 4px; }
 
     /* Skills, projects, contact simplified responsive grid */
     .skills-container, .projects-container { display:grid; gap:20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
     .skill-card, .project-card { background: rgba(255,255,255,0.06); border-radius:12px; padding:16px; color:white; }
+    .skill-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .skill-icon { font-size: 24px; color: var(--secondary-color); }
+    .skill-title { font-size: 1.1rem; }
+    .progress-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+    .progress { height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); }
 
     /* Contact */
     .contact-container { display:flex; gap:30px; align-items:flex-start; }
@@ -126,7 +134,7 @@
     .contact-form { flex:1; }
     .form-group { margin-bottom:12px; }
     .form-group label { display:block; margin-bottom:6px; color:white; font-weight:600; }
-    .form-group input, .form-group textarea { width:100%; padding:10px 12px; border-radius:8px; border:none; background:rgba(255,255,255,0.95); font-size:15px; }
+    .form-group input, .form-group textarea { width:100%; padding:10px 12px; border-radius:8px; border:none; background:rgba(255,255,255,0.95); font-size:15px; font-family: 'Poppins', sans-serif; }
     .form-group input:focus, .form-group textarea:focus { outline: 3px solid rgba(255,107,157,0.18); }
 
     footer { padding:18px 0; text-align:center; color:white; background:transparent; margin-top:30px; }
@@ -144,7 +152,7 @@
     @media (max-width: 576px) {
       .hero-text h1 { font-size:1.8rem; }
       .profile-img { width:200px; height:200px; }
-      .btn { display:block; width:100%; margin-bottom:10px; }
+      .btn { display:block; width:100%; margin-bottom:10px; margin-right: 0; }
     }
 
     /* Skip link */
@@ -154,6 +162,9 @@
     .skip-link:focus {
       position: static; width:auto; height:auto; margin:8px; padding:8px 12px; background:#fff; color:#111; border-radius:6px; z-index:2000;
     }
+
+    /* SVG icons styling */
+    .icon { width: 24px; height: 24px; display: inline-block; vertical-align: middle; }
   </style>
 </head>
 <body>
@@ -172,7 +183,11 @@
       </nav>
 
       <button id="hamburger" class="hamburger" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">
-        <i class="fas fa-bars" aria-hidden="true"></i>
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
       </button>
     </div>
   </header>
@@ -180,14 +195,48 @@
   <!-- Sidebar (for small screens) -->
   <aside id="sidebar" class="sidebar" role="dialog" aria-modal="true" aria-hidden="true">
     <button id="sidebarClose" class="sidebar-close" aria-label="Close navigation">
-      <i class="fas fa-times" aria-hidden="true"></i>
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
     </button>
     <div class="sidebar-links" role="menu">
-      <a href="#home"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
-      <a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About</a>
-      <a href="#skills"><i class="fas fa-code" aria-hidden="true"></i> Skills</a>
-      <a href="#projects"><i class="fas fa-project-diagram" aria-hidden="true"></i> Projects</a>
-      <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a>
+      <a href="#home">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        Home
+      </a>
+      <a href="#about">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        About
+      </a>
+      <a href="#skills">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        Skills
+      </a>
+      <a href="#projects">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="9" y1="9" x2="15" y2="9"></line>
+          <line x1="9" y1="15" x2="15" y2="15"></line>
+        </svg>
+        Projects
+      </a>
+      <a href="#contact">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        Contact
+      </a>
     </div>
   </aside>
 
@@ -206,22 +255,28 @@
 
           <div class="social-icons" aria-label="Social links">
             <a href="https://www.instagram.com/themanohar_singh/" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in new tab)">
-              <i class="fab fa-instagram" aria-hidden="true"></i>
+              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" fill="black"></path>
+                <circle cx="17.5" cy="6.5" r="1.5" fill="black"></circle>
+              </svg>
             </a>
             <a href="https://wa.me/9079216393" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (opens in new tab)">
-              <i class="fab fa-whatsapp" aria-hidden="true"></i>
+              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.869 1.271c-.402.247-.779.645-.779 1.111 0 .466.377.864.779 1.111a9.87 9.87 0 004.869 1.271h.004c2.771 0 5.335-1.128 7.281-3.016 1.947-1.888 3.016-4.452 3.016-7.281S19.775 2.719 17.829.831C15.883-1.056 13.319-2.185 10.548-2.185" transform="translate(1 3) scale(1.2)" fill="white"></path>
+              </svg>
             </a>
           </div>
         </div>
 
         <div class="hero-image" aria-hidden="false">
-          <!-- Use a relative path to your image. If your image lives at /img/p1.jpg use that file. -->
           <img src="img/p1.jpg"
                alt="Manohar Singh Rajpurohit — portrait"
                class="profile-img"
                loading="eager"
-               fetchpriority="high">
-          <div class="verified-badge" aria-hidden="true"><i class="fas fa-check"></i></div>
+               fetchpriority="high"
+               decoding="async">
+          <div class="verified-badge" aria-hidden="true">✓</div>
         </div>
       </div>
     </section>
@@ -232,28 +287,36 @@
         <div class="glass-card">
           <div class="about-content">
             <div class="about-image">
-              <img src="img/p1.jpg" alt="Headshot of Manohar Singh Rajpurohit" class="about-img" loading="lazy">
+              <img src="img/p1.jpg" alt="Headshot of Manohar Singh Rajpurohit" class="about-img" loading="lazy" decoding="async">
             </div>
             <div class="about-text">
               <h2>About Me</h2>
-              <p>I'm a passionate Graphic Designer and Web Developer with expertise in creating visually appealing designs and functional websites. With years of experience in the industry, I combine creative vision and technical precision to deliver results that meet client objectives and exceed expectations.</p>
+              <p>I'm a passionate Graphic Designer and Web Developer with expertise in creating visually appealing designs and functional websites. With years of experience in the industry, I combine creativity with technical skills to deliver exceptional results.</p>
               <div class="info-cards" aria-hidden="false">
                 <div class="info-card">
-                  <i class="fas fa-phone" aria-hidden="true"></i>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
                   <div class="info-text">
                     <h4>Phone</h4>
                     <p>+91 9079216393</p>
                   </div>
                 </div>
                 <div class="info-card">
-                  <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
                   <div class="info-text">
                     <h4>Location</h4>
                     <p>Barmer, Rajasthan</p>
                   </div>
                 </div>
                 <div class="info-card">
-                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <path d="m10 10 5 3-5 3v-6z" fill="currentColor"></path>
+                  </svg>
                   <div class="info-text">
                     <h4>Email</h4>
                     <p><a href="mailto:m60626135@gmail.com" style="color:inherit; text-decoration:none;">m60626135@gmail.com</a></p>
@@ -274,7 +337,9 @@
           <div class="skills-container" role="list">
             <div class="skill-card" role="listitem">
               <div class="skill-header">
-                <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" opacity="0.3"/><path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                </svg>
                 <h3 class="skill-title">HTML5</h3>
               </div>
               <p class="skill-description">Advanced knowledge of semantic HTML5 markup and modern web standards.</p>
@@ -282,7 +347,9 @@
             </div>
             <div class="skill-card" role="listitem">
               <div class="skill-header">
-                <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="3" y="3" width="18" height="18" rx="2" fill="currentColor" opacity="0.3"/>
+                </svg>
                 <h3 class="skill-title">CSS3</h3>
               </div>
               <p class="skill-description">Expert in CSS3 including Flexbox, Grid, animations and responsive design.</p>
@@ -290,13 +357,14 @@
             </div>
             <div class="skill-card" role="listitem">
               <div class="skill-header">
-                <div class="skill-icon"><i class="fab fa-js"></i></div>
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="currentColor"/>
+                </svg>
                 <h3 class="skill-title">JavaScript</h3>
               </div>
               <p class="skill-description">Strong JavaScript skills including ES6+ features and DOM manipulation.</p>
               <div class="progress-bar" aria-hidden="true"><div class="progress" style="width:85%"></div></div>
             </div>
-            <!-- Add more skill cards as needed -->
           </div>
         </div>
       </div>
@@ -314,7 +382,6 @@
                 <p class="project-description">Short description of a project. Add real projects and screenshots here.</p>
               </div>
             </div>
-            <!-- Add project cards -->
           </div>
         </div>
       </div>
@@ -331,7 +398,6 @@
             </div>
 
             <div class="contact-form">
-              <!-- Example using Formspree - replace action with your service or backend -->
               <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST" novalidate>
                 <div class="form-group">
                   <label for="name">Name</label>
@@ -363,7 +429,7 @@
     </div>
   </footer>
 
-  <!-- Small JS for navigation and accessibility -->
+  <!-- Optimized JS for navigation and accessibility -->
   <script>
     (function() {
       const hamburger = document.getElementById('hamburger');
@@ -375,10 +441,10 @@
         sidebar.classList.add('active');
         sidebar.setAttribute('aria-hidden', 'false');
         hamburger.setAttribute('aria-expanded', 'true');
-        // Focus first focusable element inside sidebar
         const firstFocusable = sidebar.querySelector(focusableSelector);
         if (firstFocusable) firstFocusable.focus();
       }
+      
       function closeSidebar() {
         sidebar.classList.remove('active');
         sidebar.setAttribute('aria-hidden', 'true');
@@ -393,11 +459,12 @@
           e.stopPropagation();
         });
       }
+      
       if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
 
-      // Close sidebar when clicking outside
+      // Close sidebar when clicking outside - debounced for performance
       document.addEventListener('click', function(e) {
-        if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        if (sidebar && !sidebar.contains(e.target) && !hamburger.contains(e.target)) {
           closeSidebar();
         }
       });
@@ -407,14 +474,14 @@
         if (e.key === 'Escape') closeSidebar();
       });
 
-      // Make sure year in footer is current
-      document.getElementById('year').textContent = new Date().getFullYear();
+      // Update year
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-      // Basic client-side form validation enhancement (optional)
+      // Form validation
       const form = document.getElementById('contactForm');
       if (form) {
         form.addEventListener('submit', function(e) {
-          // You can add custom validations here; keep basic HTML validation by default
           if (!form.checkValidity()) {
             e.preventDefault();
             form.reportValidity();
