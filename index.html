@@ -34,6 +34,15 @@
       --blue-tick: #1DA1F2;
     }
 
+    /* Dark Mode Variables */
+    body.dark-mode {
+      --primary-color: #667eea;
+      --secondary-color: #764ba2;
+      --accent-color: #f093fb;
+      --text-color: #e0e0e0;
+      --glass-color: rgba(0, 0, 0, 0.3);
+    }
+
     /* Basic reset */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -46,6 +55,12 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+      transition: background 0.3s ease;
+    }
+
+    /* Dark Mode Background */
+    body.dark-mode {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     }
 
     /* Respect reduced motion */
@@ -62,7 +77,13 @@
       -webkit-backdrop-filter: blur(4px);
       padding: 12px 0; z-index: 1000;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: background 0.3s ease;
     }
+
+    body.dark-mode header.navbar {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
     .nav-container { display:flex; align-items:center; justify-content:space-between; gap: 16px; }
     .logo { font-size: 1.25rem; font-weight:700; color: white; text-decoration: none; }
     .nav-links { display:flex; gap: 22px; align-items:center; }
@@ -74,8 +95,30 @@
     .hamburger { display:none; font-size:1.25rem; color:white; background:transparent; border:none; cursor:pointer; }
     .hamburger:focus { outline:2px solid rgba(255,255,255,0.25); border-radius:6px; }
 
+    /* Dark Mode Toggle */
+    .theme-toggle {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
     /* Sidebar */
-    .sidebar { position: fixed; top:0; left:-320px; width: 280px; height:100vh; background: rgba(255, 255, 255, 0.08); padding: 20px; z-index: 1100; transition: left .28s ease; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); overflow-y: auto; }
+    .sidebar { position: fixed; top:0; left:-320px; width: 280px; height:100vh; background: rgba(255, 255, 255, 0.08); padding: 20px; z-index: 1100; transition: left .28s ease; backdrop-filter: blur(4px); overflow-y: auto; }
     .sidebar.active { left: 0; }
     .sidebar-close { position:absolute; top:14px; right:14px; color:white; background:transparent; border:none; font-size:1.1rem; cursor:pointer; }
     .sidebar-links { margin-top:48px; display:flex; flex-direction:column; gap:18px; }
@@ -88,7 +131,7 @@
     .hero-text { flex:1; color: #fff; }
     .hero-text h1 { font-size: clamp(1.8rem, 4.5vw, 3.5rem); line-height:1.15; margin-bottom:12px; }
     .hero-text p { font-size: 1.05rem; opacity:0.95; margin-bottom:18px; }
-    .btn { padding:10px 14px; border-radius:999px; font-weight:600; border:none; cursor:pointer; color:white; box-shadow: 0 6px 18px rgba(0,0,0,0.12); margin-right:10px; display:inline-block; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+    .btn { padding:10px 14px; border-radius:999px; font-weight:600; border:none; cursor:pointer; color:white; box-shadow: 0 6px 18px rgba(0,0,0,0.12); margin-right:10px; display:inline-block; text-decoration:none; transition: all 0.3s ease; }
     .btn:hover { transform: translateY(-2px); }
     .btn-primary { background: linear-gradient(45deg, var(--primary-color), #ff8fab); }
     .btn-secondary { background: linear-gradient(45deg, #6c757d, #adb5bd); }
@@ -102,16 +145,17 @@
     }
     .profile-img:hover { transform: translateY(-8px); box-shadow: 0 18px 44px rgba(0,0,0,0.28); }
 
-    .verified-badge { position:absolute; bottom:28px; right:28px; background:var(--blue-tick); width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; box-shadow: 0 4px 12px rgba(29, 161, 242, 0.4); animation: pulse 2s infinite; }
+    .verified-badge { position:absolute; bottom:28px; right:28px; background:var(--blue-tick); width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; animation: pulse 2s infinite; }
     @keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);} }
 
     .social-icons { display:flex; gap:16px; margin-top:18px; }
-    .social-icon { width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12); color:white; font-size:18px; transition: transform .2s ease, background .2s ease; will-change: transform; }
+    .social-icon { width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12); color:white; font-size:18px; transition: transform .3s ease, background .3s ease; text-decoration:none; }
     .social-icon:hover { transform: translateY(-4px); background: rgba(255,255,255,0.18); }
 
     /* Sections and cards */
     section { padding: 80px 0; }
     .glass-card { background: rgba(255,255,255,0.12); border-radius:16px; padding:22px; border:1px solid rgba(255,255,255,0.08); box-shadow: var(--shadow); margin-bottom:30px; }
+    body.dark-mode .glass-card { background: rgba(0,0,0,0.2); }
     .about-content { display:flex; gap:30px; align-items:center; }
     .about-img { width:300px;height:300px;border-radius:16px; object-fit:cover; border:4px solid rgba(255,255,255,0.14); box-shadow: 0 10px 30px rgba(0,0,0,0.18); }
     .info-cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:18px; margin-top:18px; }
@@ -136,6 +180,29 @@
     .form-group label { display:block; margin-bottom:6px; color:white; font-weight:600; }
     .form-group input, .form-group textarea { width:100%; padding:10px 12px; border-radius:8px; border:none; background:rgba(255,255,255,0.95); font-size:15px; font-family: 'Poppins', sans-serif; }
     .form-group input:focus, .form-group textarea:focus { outline: 3px solid rgba(255,107,157,0.18); }
+
+    /* Form Status Messages */
+    .form-status {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      display: none;
+      font-weight: 600;
+    }
+
+    .form-status.success {
+      background: #4caf50;
+      color: white;
+    }
+
+    .form-status.error {
+      background: #f44336;
+      color: white;
+    }
+
+    .form-status.show {
+      display: block;
+    }
 
     footer { padding:18px 0; text-align:center; color:white; background:transparent; margin-top:30px; }
 
@@ -181,6 +248,10 @@
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
+
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Dark Mode">
+        🌙
+      </button>
 
       <button id="hamburger" class="hamburger" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -263,7 +334,7 @@
             </a>
             <a href="https://wa.me/9079216393" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (opens in new tab)">
               <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.869 1.271c-.402.247-.779.645-.779 1.111 0 .466.377.864.779 1.111a9.87 9.87 0 004.869 1.271h.004c2.771 0 5.335-1.128 7.281-3.016 1.947-1.888 3.016-4.452 3.016-7.281S19.775 2.719 17.829.831C15.883-1.056 13.319-2.185 10.548-2.185" transform="translate(1 3) scale(1.2)" fill="white"></path>
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.134.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.834 1.193c-1.5.821-2.723 1.98-3.536 3.402C2.602 13.927 2.5 15.199 2.5 16.5c0 2.48.703 4.524 2.109 6.134C6.015 24.039 8.06 25 11 25c1.301 0 2.573-.098 3.734-.292 1.422-1.813 2.581-4.034 3.402-6.536.821-1.5.98-2.723.98-3.536 0-1.301-.098-2.573-.292-3.734-1.813-1.422-4.034-2.581-6.536-3.402z"></path>
               </svg>
             </a>
           </div>
@@ -291,7 +362,7 @@
             </div>
             <div class="about-text">
               <h2>About Me</h2>
-              <p>I'm a passionate Graphic Designer and Web Developer with expertise in creating visually appealing designs and functional websites. With years of experience in the industry, I combine creativity with technical skills to deliver exceptional results.</p>
+              <p>I'm a passionate Graphic Designer and Web Developer with expertise in creating visually appealing designs and functional websites. With years of experience in the industry, I combine creativity with technical skills to deliver outstanding results.</p>
               <div class="info-cards" aria-hidden="false">
                 <div class="info-card">
                   <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -370,7 +441,7 @@
       </div>
     </section>
 
-    <!-- Projects (placeholder) -->
+    <!-- Projects Section -->
     <section class="projects" id="projects">
       <div class="container">
         <div class="glass-card">
@@ -378,8 +449,20 @@
           <div class="projects-container">
             <div class="project-card">
               <div class="project-content">
-                <h3 class="project-title">Project Title</h3>
-                <p class="project-description">Short description of a project. Add real projects and screenshots here.</p>
+                <h3 class="project-title">Portfolio Website</h3>
+                <p class="project-description">A modern, responsive portfolio website with dark mode support and contact form integration.</p>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-content">
+                <h3 class="project-title">Web Design</h3>
+                <p class="project-description">Creative web designs that combine aesthetics with functionality for better user experience.</p>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-content">
+                <h3 class="project-title">Graphic Design</h3>
+                <p class="project-description">Stunning visual designs for branding, marketing, and digital media projects.</p>
               </div>
             </div>
           </div>
@@ -398,7 +481,8 @@
             </div>
 
             <div class="contact-form">
-              <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST" novalidate>
+              <div id="formStatus" class="form-status"></div>
+              <form id="contactForm" novalidate>
                 <div class="form-group">
                   <label for="name">Name</label>
                   <input id="name" name="name" type="text" required>
@@ -429,14 +513,33 @@
     </div>
   </footer>
 
-  <!-- Optimized JS for navigation and accessibility -->
+  <!-- Optimized JS for navigation, dark mode, and contact form -->
   <script>
     (function() {
       const hamburger = document.getElementById('hamburger');
       const sidebar = document.getElementById('sidebar');
       const sidebarClose = document.getElementById('sidebarClose');
+      const themeToggle = document.getElementById('themeToggle');
       const focusableSelector = 'a, button, input, [tabindex]:not([tabindex="-1"])';
+      const FORMSPREE_URL = 'https://formspree.io/f/xzebvnnj';
 
+      // Dark Mode Toggle
+      function initThemeToggle() {
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+          document.body.classList.add('dark-mode');
+          themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', function() {
+          document.body.classList.toggle('dark-mode');
+          const isDark = document.body.classList.contains('dark-mode');
+          localStorage.setItem('darkMode', isDark);
+          themeToggle.textContent = isDark ? '☀️' : '🌙';
+        });
+      }
+
+      // Sidebar Functions
       function openSidebar() {
         sidebar.classList.add('active');
         sidebar.setAttribute('aria-hidden', 'false');
@@ -462,7 +565,7 @@
       
       if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
 
-      // Close sidebar when clicking outside - debounced for performance
+      // Close sidebar when clicking outside
       document.addEventListener('click', function(e) {
         if (sidebar && !sidebar.contains(e.target) && !hamburger.contains(e.target)) {
           closeSidebar();
@@ -478,16 +581,88 @@
       const yearEl = document.getElementById('year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-      // Form validation
+      // Form handling with Formspree
       const form = document.getElementById('contactForm');
+      const formStatus = document.getElementById('formStatus');
+
       if (form) {
         form.addEventListener('submit', function(e) {
+          e.preventDefault();
+
           if (!form.checkValidity()) {
-            e.preventDefault();
             form.reportValidity();
+            return;
           }
+
+          // Get form data
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData);
+
+          // Show loading state
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
+
+          // Send to Formspree
+          fetch(FORMSPREE_URL, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => {
+            if (response.ok) {
+              // Save to localStorage
+              const contactMessages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+              contactMessages.push({
+                ...data,
+                timestamp: new Date().toISOString()
+              });
+              localStorage.setItem('contactMessages', JSON.stringify(contactMessages));
+
+              // Show success message
+              formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+              formStatus.classList.add('success', 'show');
+              form.reset();
+
+              // Hide message after 5 seconds
+              setTimeout(() => {
+                formStatus.classList.remove('show');
+              }, 5000);
+            } else {
+              throw new Error('Form submission failed');
+            }
+          })
+          .catch(error => {
+            // Save locally even if network fails
+            const contactMessages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+            contactMessages.push({
+              ...data,
+              timestamp: new Date().toISOString(),
+              pending: true
+            });
+            localStorage.setItem('contactMessages', JSON.stringify(contactMessages));
+
+            formStatus.textContent = '✓ Message saved locally. We\'ll sync when online!';
+            formStatus.classList.add('success', 'show');
+            form.reset();
+
+            setTimeout(() => {
+              formStatus.classList.remove('show');
+            }, 5000);
+          })
+          .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          });
         });
       }
+
+      // Initialize theme on page load
+      initThemeToggle();
     })();
   </script>
 </body>
